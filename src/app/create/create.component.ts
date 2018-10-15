@@ -13,7 +13,7 @@ export class CreateComponent implements OnInit {
 
   onAddPost(form: NgForm) {
 
-    this.service.addPost(form.value.title, form.value.content);
+    this.service.addPost(form.value.title, form.value.content).subscribe();
     
     console.log(form.value);
     form.resetForm();
@@ -21,8 +21,6 @@ export class CreateComponent implements OnInit {
 
 
   ngOnInit() {
-
-
 
   }
 

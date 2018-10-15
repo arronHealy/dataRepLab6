@@ -4,6 +4,15 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.get('/', function(req, res) {
     req.send('Welcome to Data Representation & Querying');
 });
@@ -11,6 +20,11 @@ app.get('/', function(req, res) {
 app.get('/hello/:name', function(req, res) {
     console.log(req.params.name);
     res.send('Hello ' + req.params.name);
+});
+
+app.post('/api/posts', function(req, res) {
+    console.log(req.body.title);
+    console.log(req.body.content);
 });
 
 app.get('/api/posts', (req, res, next) => {
@@ -28,18 +42,17 @@ app.get('/api/posts', (req, res, next) => {
     ];
 
     res.status(200).json({
-        message: 'Posts fetched successfully!',
+        //message: 'Posts fetched successfully!',
         posts: posts
     });
 });
+
 
 app.get('/test', function(req, res) {
     console.log('file io');
     res.sendFile(path.join(__dirname) + '/index.html');
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 app.post('/name', function(req, res) {
     console.log('post method');

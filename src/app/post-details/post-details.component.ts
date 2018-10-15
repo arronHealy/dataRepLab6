@@ -15,6 +15,9 @@ export class PostDetailsComponent implements OnInit {
   constructor(private ps:PostService){}
 
   ngOnInit(){
-    this.posts = this.ps.getPosts();
+    //this.posts = this.ps.getPosts();
+    this.ps.getPostsData().subscribe(data => {
+      this.posts = data.posts;
+    });
    }
 }
